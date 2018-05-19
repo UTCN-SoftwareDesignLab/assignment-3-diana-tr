@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clinic Application</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="resources/css/table.css" th:href="@{/css/table.css}"/>
+</head>
+<body>
+<h2>List of Patients</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Identity card number</th>
+        <th>Personal numerical code</th>
+        <th>Date of birth</th>
+        <th>Address</th>
+    </tr>
+    <tr th:each="patient: ${patients}">
+        <td th:text="${patient.id}"></td>
+        <td th:text="${patient.name}"></td>
+        <td th:text="${patient.icn}"></td>
+        <td th:text="${patient.pnc}"></td>
+        <td th:text="${patient.dateOfBirth}"></td>
+        <td th:text="${patient.address}"></td>
+        <td><a th:href="@{/patients/edit/(id=${patient.id})}">Edit</a></td>
+    </tr>
+</table>
+
+<h2>Enter the id of the patient you want to delete:</h2>
+<p>
+<form th:action="@{/patients/delete}" method="get">
+    <input type="text" name="id" th:value="*{id}">
+    <button type="submit">Delete</button>
+    <div th:if="${param.success}">
+        Patient successfully deleted!
+    </div>
+</form>
+</p>
+
+<p><a th:href="@{/patients/create}">Create a new patient</a></p>
+
+<p><a th:href="@{/secretary}">Back</a></p>
+
+
+</body>
+</html>

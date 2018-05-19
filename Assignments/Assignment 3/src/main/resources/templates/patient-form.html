@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clinic Application</title>
+</head>
+<body>
+<h1>Add a new patient</h1>
+<form th:action="@{/patients/create}" th:object="${patient}" method="post">
+    <p>Name: <input type="text" th:field="${patient.name}"/></p>
+    <p>Identity card number: <input type="number" th:field="${patient.icn}"></p>
+    <p>Personal numberical code: <input type="number" th:field="${patient.pnc}"/></p>
+    <p>Date of birth: <input type="text" th:field="${patient.dateOfBirth}"/></p>
+    <p>Address: <input type="text" th:field="${patient.address}"/></p>
+    <p>
+        <button>Save</button>
+    </p>
+</form>
+
+<div th:if="${param.success}">
+    Patient created successfully!
+</div>
+
+<a th:href="@{/patients}">List of patients</a>
+</body>
+</html>
