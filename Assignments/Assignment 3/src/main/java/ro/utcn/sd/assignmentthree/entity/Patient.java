@@ -1,7 +1,10 @@
 package ro.utcn.sd.assignmentthree.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Entity
@@ -14,15 +17,19 @@ public class Patient {
 
     private String name;
     private int icn;
-    private int pnc;
-    @Column(name = "dateOfBirth")
-    private Timestamp dateOfBirth;
+    private String pnc;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    @Column(name="dateOfBirth")
+    private Date dateOfBirth;
+
     private String address;
 
     public Patient() {
     }
 
-    public Patient(String name, int icn, int pnc, Timestamp dateOfBirth, String address) {
+    public Patient(String name, int icn, String pnc, Timestamp dateOfBirth, String address) {
         this.name = name;
         this.icn = icn;
         this.pnc = pnc;
@@ -54,19 +61,19 @@ public class Patient {
         this.icn = icn;
     }
 
-    public int getPnc() {
+    public String getPnc() {
         return pnc;
     }
 
-    public void setPnc(int pnc) {
+    public void setPnc(String pnc) {
         this.pnc = pnc;
     }
 
-    public Timestamp getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Timestamp dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

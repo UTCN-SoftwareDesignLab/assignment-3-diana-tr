@@ -1,7 +1,10 @@
 package ro.utcn.sd.assignmentthree.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import ro.utcn.sd.assignmentthree.entity.User;
+
+import java.util.List;
 
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -12,4 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteById(Long id);
 
     User findByUsernameAndPassword(String username, String password);
+
+    @Query(value="SELECT * FROM user u INNER JOIN user_role ur on(u.user_id=ur.user_id) INNER JOIN role r on(ur.role_id=r.role_id) WHERE r.role=?1",nativeQuery = true)
+    List<User> findByRole(String role);
 }

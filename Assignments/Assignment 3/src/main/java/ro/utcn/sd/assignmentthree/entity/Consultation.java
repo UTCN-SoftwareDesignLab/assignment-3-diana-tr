@@ -1,6 +1,7 @@
 package ro.utcn.sd.assignmentthree.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Consultation {
@@ -8,15 +9,16 @@ public class Consultation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idconsultation")
-    private int id;
-/*
-    @ManyToOne
-    @JoinColumn(name = "idpatient")
+    private Long id;
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "patient_id", referencedColumnName = "idpatient")
     private Patient patient;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
+
     private Date date;
 
     public Consultation() {
@@ -28,11 +30,11 @@ public class Consultation {
         this.date = date;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -58,5 +60,5 @@ public class Consultation {
 
     public void setDate(Date date) {
         this.date = date;
-    }*/
+    }
 }

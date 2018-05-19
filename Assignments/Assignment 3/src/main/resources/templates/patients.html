@@ -23,7 +23,7 @@
         <td th:text="${patient.name}"></td>
         <td th:text="${patient.icn}"></td>
         <td th:text="${patient.pnc}"></td>
-        <td th:text="${patient.dateOfBirth}"></td>
+        <td th:text="${#dates.format(patient.dateOfBirth, 'yyyy-MM-dd')}"></td>
         <td th:text="${patient.address}"></td>
         <td><a th:href="@{/patients/edit/(id=${patient.id})}">Edit</a></td>
     </tr>

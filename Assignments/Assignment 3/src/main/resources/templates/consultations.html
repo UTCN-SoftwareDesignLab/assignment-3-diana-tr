@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clinic Application</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="resources/css/table.css" th:href="@{/css/table.css}"/>
+</head>
+<body>
+<h2>List of Consultations</h2>
+<table border="1">
+    <tr>
+        <th>Id</th>
+        <th>Date</th>
+        <th>Patient Name</th>
+        <th>Doctor Name</th>
+    </tr>
+    <tr th:each="consultation: ${consultations}">
+        <td th:text="${consultation.id}"></td>
+        <td th:text="${#dates.format(consultation.date, 'yyyy-MM-dd')}"></td>
+        <td th:text="${consultation.patient.name}"></td>
+        <td th:text="${consultation.user.username}"></td>
+        <td><a th:href="@{/consultations/edit/(id=${consultation.id})}">Edit</a></td>
+    </tr>
+</table>
+
+<p><a th:href="@{/consultations/create}">Create a new consultation</a></p>
+
+</body>
+</html>

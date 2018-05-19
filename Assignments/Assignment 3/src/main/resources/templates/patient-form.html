@@ -10,7 +10,7 @@
 <form th:action="@{/patients/create}" th:object="${patient}" method="post">
     <p>Name: <input type="text" th:field="${patient.name}"/></p>
     <p>Identity card number: <input type="number" th:field="${patient.icn}"></p>
-    <p>Personal numberical code: <input type="number" th:field="${patient.pnc}"/></p>
+    <p>Personal numerical code: <input type="text" th:field="${patient.pnc}"/></p>
     <p>Date of birth: <input type="text" th:field="${patient.dateOfBirth}"/></p>
     <p>Address: <input type="text" th:field="${patient.address}"/></p>
     <p>

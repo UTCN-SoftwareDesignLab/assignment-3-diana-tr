@@ -1,8 +1,12 @@
 package ro.utcn.sd.assignmentthree.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public class PatientDto {
 
@@ -13,9 +17,11 @@ public class PatientDto {
 
     private int icn;
     @Size(min = 13, message = "Personal numerical code must be 13 digits long")
-    private int pnc;
+    private String pnc;
 
-    private Timestamp dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
     private String address;
 
     public Long getId() {
@@ -42,19 +48,19 @@ public class PatientDto {
         this.icn = icn;
     }
 
-    public int getPnc() {
+    public String getPnc() {
         return pnc;
     }
 
-    public void setPnc(int pnc) {
+    public void setPnc(String pnc) {
         this.pnc = pnc;
     }
 
-    public Timestamp getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Timestamp dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
