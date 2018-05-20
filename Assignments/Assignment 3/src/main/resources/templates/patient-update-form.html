@@ -13,7 +13,7 @@
     <p>Title: <input type="text" th:field="${patientDto.name}"/></p>
     <p>Author: <input type="number" th:field="${patientDto.icn}"></p>
     <p>Genre: <input type="text" th:field="${patientDto.pnc}"/></p>
-    <p>Quantity: <input type="text" th:field="${patientDto.dateOfBirth}"/></p>
+    <p>Quantity: <input type="text" th:field="${#dates.format(patientDto.dateOfBirth, 'yyyy-MM-dd')}"/></p>
     <p>Price: <input type="text" th:field="${patientDto.address}"/></p>
     <p>
         <button>Save</button>

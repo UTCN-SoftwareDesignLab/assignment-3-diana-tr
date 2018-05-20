@@ -9,10 +9,10 @@
 <h1>Add a new consultation</h1>
 <form th:action="@{/consultations/create}" th:object="${consultation}" method="post">
     <p>Date: <input type="text" th:field="${consultation.date}"/></p>
-    <p>Patient Id: <select name="patient_id" th:field="${consultation.patient_id}">
+    <p>Patient Name: <select name="patient_id" th:field="${consultation.patient_id}">
     <option th:each="patient: ${patients}" th:value="${patient.id}" th:text="${patient.name}">
     </option></select></p>
-    <p>Doctor Id: <select name="user_id" th:field="${consultation.user_id}">
+    <p>Doctor Name: <select name="user_id" th:field="${consultation.user_id}">
         <option th:each="doctor: ${doctors}" th:value="${doctor.id}" th:text="${doctor.username}">
         </option></select></p>
     <p>

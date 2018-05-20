@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Clinic Application</title>
+</head>
+<body>
+
+<h1>Edit an existing consultation</h1>
+<form th:action="@{/consultations/update}" th:object="${consultationDto}" method="post">
+    <p>Id: <input type="text"  th:readonly="true" th:field="${consultationDto.id}"/></p>
+    <p>Date: <input type="text" th:field="${consultationDto.date}"/></p>
+    <p>Patient Name: <select name="patient_id" th:field="${consultationDto.patient_id}">
+        <option th:each="patient: ${patients}" th:value="${patient.id}" th:text="${patient.name}">
+        </option></select></p>
+    <p>Doctor Name: <select name="user_id" th:field="${consultationDto.user_id}">
+        <option th:each="doctor: ${doctors}" th:value="${doctor.id}" th:text="${doctor.username}">
+        </option></select></p>
+    <p>
+    <p>
+        <button>Save</button>
+    </p>
+</form>
+
+<div th:if="${param.success}">
+    Consultation successfully updated!
+</div>
+
+<a th:href="@{/consultations}">List of consultations</a>
+</body>
+</html>

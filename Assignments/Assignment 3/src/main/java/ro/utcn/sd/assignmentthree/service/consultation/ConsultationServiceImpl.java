@@ -49,12 +49,12 @@ public class ConsultationServiceImpl implements ConsultationService {
     }
 
     @Override
-    public List<Consultation> findByPatientId(Long id) {
+    public List<Consultation> getAllByPatientId(Long id) {
         return consultationRepository.findByPatient_id(id);
     }
 
     @Override
-    public List<Consultation> findByDoctorId(Long id) {
+    public List<Consultation> getAllByDoctorId(Long id) {
         return consultationRepository.findByUser_id(id);
     }
 }

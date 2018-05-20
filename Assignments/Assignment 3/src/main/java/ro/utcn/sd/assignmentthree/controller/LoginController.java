@@ -24,6 +24,11 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping
+    public String index(){
+        return "login";
+    }
+
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public ModelAndView registration() {
         ModelAndView modelAndView = new ModelAndView();

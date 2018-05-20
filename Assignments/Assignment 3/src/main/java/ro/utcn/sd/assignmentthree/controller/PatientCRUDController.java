@@ -56,7 +56,7 @@ public class PatientCRUDController {
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public ModelAndView editBook(@RequestParam(value = "id") String id) {
+    public ModelAndView editPatient(@RequestParam(value = "id") String id) {
         ModelAndView modelAndView = new ModelAndView("patient-update-form");
         Patient patient = patientService.findById(Long.parseLong(id));
         PatientDto patientDto = new PatientToPatientDtoConverter().apply(patient);

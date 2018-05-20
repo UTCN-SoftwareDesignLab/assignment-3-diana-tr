@@ -17,7 +17,7 @@ public interface ConsultationService {
 
     void update(Consultation consultation);
 
-    List<Consultation> findByPatientId(Long id);
+    List<Consultation> getAllByPatientId(Long id);
 
-    List<Consultation> findByDoctorId(Long id);
+    List<Consultation> getAllByDoctorId(Long id);
 }

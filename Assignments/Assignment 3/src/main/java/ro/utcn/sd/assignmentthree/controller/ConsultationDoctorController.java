@@ -1,6 +1,8 @@
 package ro.utcn.sd.assignmentthree.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,11 +18,9 @@ import ro.utcn.sd.assignmentthree.service.consultation.ConsultationService;
 import ro.utcn.sd.assignmentthree.service.patient.PatientService;
 import ro.utcn.sd.assignmentthree.service.user.UserService;
 
-import javax.validation.Valid;
-
 @Controller
-@RequestMapping("/consultations")
-public class ConsultationCRUDController {
+@RequestMapping("/doctor")
+public class ConsultationDoctorController {
 
     @Autowired
     private ConsultationService consultationService;
@@ -32,42 +32,26 @@ public class ConsultationCRUDController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAll(Model model) {
-        model.addAttribute("consultations", consultationService.getAll());
-        return "consultations";
+    public String doctor(Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username=user.getUsername();
+        ro.utcn.sd.assignmentthree.entity.User user1=userService.findByUsername(username);
+        Long userId=user1.getId();
+        model.addAttribute("userId", userId);
+        model.addAttribute("consultations",consultationService.getAllByDoctorId(userId));
+        System.out.println(userId);
+        return "doctor";
     }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@ModelAttribute @Valid ConsultationDto consultationDto) {
-        consultationService.create(consultationDto);
-        return "redirect:create?success";
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String showCreateForm(Model model) {
-        model.addAttribute("consultation", new ConsultationDto());
-        model.addAttribute("patients", patientService.getAll());
-        model.addAttribute("doctors", userService.getAllByRole("ROLE_DOCTOR"));
-        return "consultation-form";
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(name = "id") String id, Model model) {
-        consultationService.delete(Long.parseLong(id));
-        model.addAttribute("deleteMessage", "Consultation was successfully deleted");
-        return "redirect:/consultations";
-    }
-
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String showUpdateForm(Model model) {
         model.addAttribute("consultation", new Consultation());
-        return "consultation-update-form";
+        return "consultation-doctor-update-form";
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView editConsultation(@RequestParam(value = "id") String id) {
-        ModelAndView modelAndView = new ModelAndView("consultation-update-form");
+        ModelAndView modelAndView = new ModelAndView("consultation-doctor-update-form");
         Consultation consultation = consultationService.findById(Long.parseLong(id));
         ConsultationDto consultationDto = new ConsultationToConsultationDtoConverter().apply(consultation);
         modelAndView.addObject("consultationDto", consultationDto);
@@ -78,12 +62,11 @@ public class ConsultationCRUDController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public ModelAndView update(@ModelAttribute ConsultationDto consultationDto) {
-        ModelAndView modelAndView = new ModelAndView("redirect:/consultations");
+        ModelAndView modelAndView = new ModelAndView("redirect:/doctor");
         Consultation consultation = new ConsultationDtoToConsultationConverter().apply(consultationDto);
         consultationService.update(consultation);
         modelAndView.addObject("message", "Success");
         return modelAndView;
     }
-
 
 }
