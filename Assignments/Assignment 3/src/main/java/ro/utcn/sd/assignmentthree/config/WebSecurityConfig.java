@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Qualifier("dataSource")
@@ -45,9 +45,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf()
-                .disable()
+                .and()
+                .headers()
+                .frameOptions().sameOrigin()
+                .and()
                 .authorizeRequests()
                 .antMatchers("/registration").permitAll()
+                .antMatchers("/endpoint/**/**",
+                        "/endpoint/socket",
+                        "/endpoint/success").authenticated()
+                .antMatchers("/js").permitAll()
                 .antMatchers("/secretary/**").hasRole("SECRETARY")
                 .antMatchers("/doctor/**").hasRole("DOCTOR")
                 .antMatchers("/admin/**").hasRole("ADMIN")

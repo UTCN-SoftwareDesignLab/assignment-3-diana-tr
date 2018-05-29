@@ -24,9 +24,9 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping
+    @RequestMapping(value="/")
     public String index(){
-        return "login";
+        return "index";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
